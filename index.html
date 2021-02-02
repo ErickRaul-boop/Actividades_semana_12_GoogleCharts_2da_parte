@@ -1,0 +1,125 @@
+<html>
+  <head>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(Dibujar);
+      
+      function Dibujar(){
+        drawSeriesChart();
+        Sankey();
+        SteppedAreaChart();
+      }
+
+      // Dibujando char.Draw();
+    function drawSeriesChart() {
+
+      var data = google.visualization.arrayToDataTable([
+        ['ID', 'Life Expectancy', 'Fertility Rate', 'Region',     'Population'],
+        ['CAN',    80.66,              1.67,      'North America',  33739900],
+        ['DEU',    79.84,              1.36,      'Europe',         81902307],
+        ['DNK',    78.6,               1.84,      'Europe',         5523095],
+        ['EGY',    72.73,              2.78,      'Middle East',    79716203],
+        ['GBR',    80.05,              2,         'Europe',         61801570],
+        ['IRN',    72.49,              1.7,       'Middle East',    73137148],
+        ['IRQ',    68.09,              4.77,      'Middle East',    31090763],
+        ['ISR',    81.55,              2.96,      'Middle East',    7485600],
+        ['RUS',    68.6,               1.54,      'Europe',         141850000],
+        ['USA',    78.09,              2.05,      'North America',  307007000]
+      ]);
+
+      var options = {
+        title: 'Correlation between life expectancy, fertility rate ' +
+               'and population of some world countries (2010)',
+        hAxis: {title: 'Life Expectancy'},
+        vAxis: {title: 'Fertility Rate'},
+        bubble: {textStyle: {fontSize: 11}}
+      };
+
+      var chart = new google.visualization.BubbleChart(document.getElementById('series_chart_div'));
+      chart.draw(data, options);
+    }
+    
+      //ChartWrapper();
+      function Sankey() {
+        var wrapper = new google.visualization.ChartWrapper({
+          chartType: 'TreeMap',
+          dataTable: [
+          ['Location', 'Parent', 'Market trade volume (size)', 'Market increase/decrease (color)'],
+          ['Global',    null,                 0,                               0],
+          ['America',   'Global',             0,                               0],
+          ['Europe',    'Global',             0,                               0],
+          ['Asia',      'Global',             0,                               0],
+          ['Australia', 'Global',             0,                               0],
+          ['Africa',    'Global',             0,                               0],
+          ['Brazil',    'America',            11,                              10],
+          ['USA',       'America',            52,                              31],
+          ['Mexico',    'America',            24,                              12],
+          ['Canada',    'America',            16,                              -23],
+          ['France',    'Europe',             42,                              -11],
+          ['Germany',   'Europe',             31,                              -2],
+          ['Sweden',    'Europe',             22,                              -13],
+          ['Italy',     'Europe',             17,                              4],
+          ['UK',        'Europe',             21,                              -5],
+          ['China',     'Asia',               36,                              4],
+          ['Japan',     'Asia',               20,                              -12],
+          ['India',     'Asia',               40,                              63],
+          ['Laos',      'Asia',               4,                               34],
+          ['Mongolia',  'Asia',               1,                               -5],
+          ['Israel',    'Asia',               12,                              24],
+          ['Iran',      'Asia',               18,                              13],
+          ['Pakistan',  'Asia',               11,                              -52],
+          ['Egypt',     'Africa',             21,                              0],
+          ['S. Africa', 'Africa',             30,                              43],
+          ['Sudan',     'Africa',             12,                              2],
+          ['Congo',     'Africa',             10,                              12],
+          ['Zaire',     'Africa',             8,                               10]
+        ],
+          options: { minColor: '#f00',
+          midColor: '#ddd',
+          maxColor: '#0d0',
+          headerHeight: 15,
+          fontColor: 'black',
+          showScale: true},
+          containerId: 'sankey'
+        });
+        wrapper.draw();
+      }
+
+      //DrawChart();
+      function SteppedAreaChart() {
+
+        var dataTable = [
+          ["Country", "Population Density"],
+          ["Indonesia", 117],
+          ["China", 137],
+          ["Nigeria", 142],
+          ["Pakistan", 198],
+          ["India", 336],
+          ["Japan", 339],
+          ["Bangladesh", 1045]
+        ];
+        google.visualization.drawChart({
+          
+         "containerId": "div_drawChart",
+         "dataTable": dataTable,
+         "query":"SELECT A,D WHERE D > 100 ORDER BY D",
+         "refreshInterval": 5,
+         "chartType": "Table",
+         "options": {
+            "alternatingRowStyle": true,
+            "showRowNumber" : true
+         }
+       });
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Chart.Draw()</h1>
+    <div id="series_chart_div" style="width: 900px; height: 500px;"></div>
+    <h1>ChartWrapper()</h1>
+    <div id="sankey" style="width: 900px; height: 500px;"></div>
+    <h1>DrawChart()</h1>
+    <div id="div_drawChart" style="width: 900px; height: 500px;"></div>
+  </body>
+</html>
